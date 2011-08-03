@@ -1,0 +1,24 @@
+Source: landslide
+Maintainer: Damien Raude-Morvan <drazzib@debian.org>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3), python-all (>= 2.6.6-3), debhelper (>= 8)
+Standards-Version: 3.9.1
+Homepage: https://github.com/adamzap/landslide
+
+Package: python-landslide
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Breaks: ${python:Breaks}
+Description: Lightweight markup language-based html5 slideshow generator
+ Landside is a tool which can generates an HTML5 slideshow using lightweight
+ markup as input.
+ .
+ You can write your slide contents easily using two syntaxes:
+  * Markdown
+  * ReStructuredText
+ .
+ This tool support CSS/JS theming, PDF export (using PrinceXML Python library),
+ embed images with Base64 (for stand-alone document) and fancy transitions.
+ .
+ Sample presentation is visible here : <http://slides.html5rocks.com/>.

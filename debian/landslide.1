@@ -1,0 +1,57 @@
+.TH LANDSLIDE 1 "March 2011" "Landslide" "User Commands"
+.SH NAME
+landslide \- html5 slideshow generator
+.SH SYNOPSIS
+.B landslide
+[\fIoptions\fR] \fIinput.md \fR...
+.SH DESCRIPTION
+Landside is a tool which can generates an HTML5 slideshow using lightweight
+markup as input.
+.PP
+You can write your slide contents easily using two syntaxes:
+.TP
+.B Markdown
+.TP
+.B ReStructuredText
+.PP
+This tool support CSS/JS theming, PDF export (using PrinceXML Python library),
+embed images with Base64 (for stand-alone document) and fancy transitions.
+.PP
+Sample presentation is visible here : <http://slides.html5rocks.com/>.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+show help message and exit
+.TP
+\fB\-b\fR, \fB\-\-debug\fR
+Will display any exception trace to stdin
+.TP
+\fB\-d\fR FILE, \fB\-\-destination\fR=\fIFILE\fR
+The path to the to the destination file: .html or .pdf
+extensions allowed (default: presentation.html)
+.TP
+\fB\-e\fR ENCODING, \fB\-\-encoding\fR=\fIENCODING\fR
+The encoding of your files (defaults to utf8)
+.TP
+\fB\-i\fR, \fB\-\-embed\fR
+Embed stylesheet and javascript contents,
+base64\-encoded images in presentation to make a
+standalone document
+.TP
+\fB\-t\fR THEME, \fB\-\-theme\fR=\fITHEME\fR
+A theme name, or path to a landlside theme directory
+.TP
+\fB\-o\fR, \fB\-\-direct\-ouput\fR
+Prints the generated HTML code to stdin; won't work
+with PDF export
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Won't write anything to stdin (silent mode)
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Write informational messages to stdin (enabled by
+default)
+.SH DIAGNOSTICS
+Note: PDF export requires the `prince` program: http://princexml.com/
+.SH AUTHOR
+Damien Raude-Morvan <drazzib@debian.org>

@@ -1,0 +1,3 @@
+version=3
+http://githubredir.debian.net/github/adamzap/landslide \
+ /github/adamzap/landslide/v(.*).tar.gz

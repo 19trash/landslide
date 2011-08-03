@@ -1,0 +1,12 @@
+landslide (0.8.2-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Rebuild to add Python 2.7 support
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sun, 08 May 2011 16:45:50 +0200
+
+landslide (0.8.2-1) unstable; urgency=low
+
+  * Initial upload (Closes: #614424)
+
+ -- Damien Raude-Morvan <drazzib@debian.org>  Tue, 22 Feb 2011 01:19:20 +0100
