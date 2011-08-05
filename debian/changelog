@@ -1,17 +1,20 @@
-landslide (0.8.2-1.1~1.gbpf4123b) unstable; urgency=low
+landslide (0.8.2-2~1.gbpf4123b) unstable; urgency=low
 
   ** SNAPSHOT build @f4123bc0119feb637e4bda3869fb8e03849e4e1c **
 
-  [ Piotr Ożarowski ]
-  * Non-maintainer upload.
-  * Rebuild to add Python 2.7 support
-
-  [ Recai Oktaş ]
   * New upstream from the git snapshot indicated above
   * Unapply patches after build
   * Add gbp.conf
 
  -- Recai Oktaş <roktas@debian.org>  Thu, 04 Aug 2011 02:23:08 +0300
+
+landslide (0.8.2-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Rebuild to add Python 2.7 support
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sun, 08 May 2011 16:45:50 +0200
+
 
 landslide (0.8.2-1) unstable; urgency=low
 
