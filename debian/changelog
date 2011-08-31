@@ -1,3 +1,9 @@
+landslide (1.0.0-1) unstable; urgency=low
+
+  * New upstream (release 1.0.0)
+
+ -- Recai Oktaş <roktas@debian.org>  Wed, 31 Aug 2011 15:18:55 +0300
+
 landslide (0.8.2-2~1.gbpf4123b) unstable; urgency=low
 
   ** SNAPSHOT build @f4123bc0119feb637e4bda3869fb8e03849e4e1c **
