@@ -35,7 +35,7 @@ landslide (1.0.0-2xix1.gbpacce21~1.gbp28ba27) unstable; urgency=low
   * New snapshot
   * Fix maintainer
 
- -- Recai Oktaş <roktas@kant.roktas.me>  Tue, 01 Nov 2011 23:04:34 +0200
+ -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 23:04:34 +0200
 
 landslide (1.0.0-2) unstable; urgency=low
 
