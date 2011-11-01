@@ -34,7 +34,7 @@ landslide (1.0.0-2xix1.gbpacce21) unstable; urgency=low
   * Rename IncMacro to IncludeMacro
   * Add IncludeMacro to default macros list
 
- -- Recai Oktaş <roktas@kant.roktas.me>  Tue, 01 Nov 2011 22:10:24 +0200
+ -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 22:10:24 +0200
 
 landslide (1.0.0-2) unstable; urgency=low
 
