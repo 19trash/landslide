@@ -1,8 +1,39 @@
-landslide (1.0.0-1) unstable; urgency=low
+landslide (1.0.0-1~1.gbp3f3656) unstable; urgency=low
 
+  ** SNAPSHOT build @3f3656a9ef0c0e1f862d7d8d10a512c391079488 **
+
+  [ Recai Oktaş ]
   * New upstream (release 1.0.0)
 
- -- Recai Oktaş <roktas@debian.org>  Wed, 31 Aug 2011 15:18:55 +0300
+  [ holdensmagicalunicorn ]
+  * Spelling correction in README
+
+  [ Anand Chitipothu ]
+  * Fixed UnicodeEncodeError when used with --direct-ouput option.
+
+  [ Adam Zapletal ]
+  * Fix spelling, ouput => output
+  * ReST regex compatibility for py < 2.7. Fixes #76
+
+  [ Mark Allen ]
+  * Add an entry to the TOC even if a slide doesn't have a title.
+
+  [ Adam Zapletal ]
+  * Show "-" in table of contents for untitled slides
+  * Fix stdin/stdout typo and formatting in main
+  * Unset verbose option when in direct output mode
+
+  [ Recai Oktaş ]
+  * Fix unittest for EmbedImage macro
+  * Fix unittest for FixImagePaths macro
+  * Various enhancements for pre areas
+  * Adapt enhancements made for the default theme
+  * Adapt enhancements made for the default theme
+  * New macros, ".code", ".coden" and ".include" to include external files
+  * New unittests for IncMacro
+  * New examples to demonstrate IncMacro
+
+ -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 21:16:36 +0200
 
 landslide (0.8.2-2~1.gbpf4123b) unstable; urgency=low
 
