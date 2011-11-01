@@ -1,6 +1,6 @@
-landslide (1.0.0-2xix1.gbpacce21) unstable; urgency=low
+landslide (1.0.0-2xix1.gbpacce21~1.gbp28ba27) unstable; urgency=low
 
-  ** SNAPSHOT build @acce21875a1c68b45db8fea84bf1510aeea353e3 **
+  ** SNAPSHOT build @28ba2766a3ec154d2ae0a50f2f60c879d327482b **
 
   [ holdensmagicalunicorn ]
   * Spelling correction in README
@@ -31,10 +31,11 @@ landslide (1.0.0-2xix1.gbpacce21) unstable; urgency=low
   * New examples to demonstrate IncMacro
   * New snapshot release from our fork
   * Adapt package to the new official Debian package
-  * Rename IncMacro to IncludeMacro
   * Add IncludeMacro to default macros list
+  * New snapshot
+  * Fix maintainer
 
- -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 22:10:24 +0200
+ -- Recai Oktaş <roktas@kant.roktas.me>  Tue, 01 Nov 2011 23:04:34 +0200
 
 landslide (1.0.0-2) unstable; urgency=low
 
