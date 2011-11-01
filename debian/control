@@ -1,14 +1,16 @@
 Source: landslide
-Maintainer: Damien Raude-Morvan <drazzib@debian.org>
+Maintainer: Recai Oktaş <roktas@debian.org>
 Section: python
 Priority: optional
 Build-Depends: python-setuptools (>= 0.6b3), python-all (>= 2.6.6-3), debhelper (>= 8)
-Standards-Version: 3.9.1
-Homepage: https://github.com/adamzap/landslide
+Standards-Version: 3.9.2
+Homepage: https://github.com/00010011/landslide
+Vcs-Git: git://github.com/00010011/landslide.git
+Vcs-Browser: https://github.com/00010011/landslide
 
 Package: python-landslide
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
+Depends: ${misc:Depends}, ${python:Depends}, python-pkg-resources
 Breaks: ${python:Breaks}
 Description: Lightweight markup language-based html5 slideshow generator
  Landside is a tool which can generates an HTML5 slideshow using lightweight
@@ -22,3 +24,7 @@ Description: Lightweight markup language-based html5 slideshow generator
  embed images with Base64 (for stand-alone document) and fancy transitions.
  .
  Sample presentation is visible here : <http://slides.html5rocks.com/>.
+ .
+ This is an unofficial package from 19 organisation (<http://ondokuz.biz/>),
+ which is based on the official package maintained by Damien Raude-Morvan
+ <drazzib@debian.org>.

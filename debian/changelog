@@ -1,9 +1,6 @@
-landslide (1.0.0-1~1.gbp3f3656) unstable; urgency=low
+landslide (1.0.0-2xix1.gbp3f3656) unstable; urgency=low
 
   ** SNAPSHOT build @3f3656a9ef0c0e1f862d7d8d10a512c391079488 **
-
-  [ Recai Oktaş ]
-  * New upstream (release 1.0.0)
 
   [ holdensmagicalunicorn ]
   * Spelling correction in README
@@ -35,23 +32,20 @@ landslide (1.0.0-1~1.gbp3f3656) unstable; urgency=low
 
  -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 21:16:36 +0200
 
-landslide (0.8.2-2~1.gbpf4123b) unstable; urgency=low
+landslide (1.0.0-2) unstable; urgency=low
 
-  ** SNAPSHOT build @f4123bc0119feb637e4bda3869fb8e03849e4e1c **
+  * Add missing dependency on python-pkg-resources. Thanks to Jakub Wilk for
+    notifying (Closes: #645254).
 
-  * New upstream from the git snapshot indicated above
-  * Unapply patches after build
-  * Add gbp.conf
+ -- Damien Raude-Morvan <drazzib@debian.org>  Mon, 17 Oct 2011 23:17:43 +0200
 
- -- Recai Oktaş <roktas@debian.org>  Thu, 04 Aug 2011 02:23:08 +0300
+landslide (1.0.0-1) unstable; urgency=low
 
-landslide (0.8.2-1.1) unstable; urgency=low
+  * New upstream release.
+  * Bump Standards-Version to 3.9.2: no changes needed.
+  * Add Vcs-* headers.
 
-  * Non-maintainer upload.
-  * Rebuild to add Python 2.7 support
-
- -- Piotr Ożarowski <piotr@debian.org>  Sun, 08 May 2011 16:45:50 +0200
-
+ -- Damien Raude-Morvan <drazzib@debian.org>  Wed, 21 Sep 2011 15:38:14 +0200
 
 landslide (0.8.2-1) unstable; urgency=low
 
