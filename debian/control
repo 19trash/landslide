@@ -25,6 +25,8 @@ Description: Lightweight markup language-based html5 slideshow generator
  .
  Sample presentation is visible here : <http://slides.html5rocks.com/>.
  .
- This is an unofficial package from 19 organisation (<http://ondokuz.biz/>),
+ **This is an unofficial package from 19 organisation (<http://ondokuz.biz/>),
  which is based on the official package maintained by Damien Raude-Morvan
- <drazzib@debian.org>.
+ <drazzib@debian.org>.  Other than the snapshot changes from the upstream's
+ repository, it includes (possible) changes from our fork.  Please examine
+ debian/changelog for the changes.**

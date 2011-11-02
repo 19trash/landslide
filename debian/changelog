@@ -1,39 +1,6 @@
-landslide (1.0.0-2xix1.gbp28ba27) unstable; urgency=low
+landslide (1:1.0.0-2xix1) unstable; urgency=low
 
-  ** SNAPSHOT build @28ba2766a3ec154d2ae0a50f2f60c879d327482b **
-
-  [ holdensmagicalunicorn ]
-  * Spelling correction in README
-
-  [ Anand Chitipothu ]
-  * Fixed UnicodeEncodeError when used with --direct-ouput option.
-
-  [ Adam Zapletal ]
-  * Fix spelling, ouput => output
-  * ReST regex compatibility for py < 2.7. Fixes #76
-
-  [ Mark Allen ]
-  * Add an entry to the TOC even if a slide doesn't have a title.
-
-  [ Adam Zapletal ]
-  * Show "-" in table of contents for untitled slides
-  * Fix stdin/stdout typo and formatting in main
-  * Unset verbose option when in direct output mode
-
-  [ Recai Oktaş ]
-  * Fix unittest for EmbedImage macro
-  * Fix unittest for FixImagePaths macro
-  * Various enhancements for pre areas
-  * Adapt enhancements made for the default theme
-  * Adapt enhancements made for the default theme
-  * New macros, ".code", ".coden" and ".include" to include external files
-  * New unittests for IncMacro
-  * New examples to demonstrate IncMacro
-  * New snapshot release from our fork
-  * Adapt package to the new official Debian package
-  * Add IncludeMacro to default macros list
-  * New snapshot
-  * Fix maintainer
+  * Initial upload for 19 organisation.
 
  -- Recai Oktaş <roktas@debian.org>  Tue, 01 Nov 2011 23:04:34 +0200
 
