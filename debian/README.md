@@ -1,4 +1,4 @@
-## Workflow for Debian Packaging
+## Debian Packaging Workflow
 
 ### Package version
 
@@ -14,7 +14,7 @@
 - `xix1` → Distro (or community) version.
 
 - `~1.gbp661d97` → Git snapshot (`1` is the snapshot number, `661d97` is the
-  suffix derived from commit id).  Note that this field is omitted on a stable
+  suffix derived from commit id).  Note that this field is omitted in a stable
   release.
 
 ### Update from upstream
@@ -24,7 +24,7 @@
 
 ### Start new release
 
-- Create a new version by increment distro version.   For example
+- Create a new version by incrementing distro version.   For example
   `1:1.0.0-2xix1` becomes `1:1.0.0-2xix2`
 
 - Release with the new version
