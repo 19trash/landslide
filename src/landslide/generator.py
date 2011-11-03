@@ -50,6 +50,7 @@ class Generator(object):
         macro_module.NotesMacro,
         macro_module.QRMacro,
         macro_module.IncludeMacro,
+        macro_module.GistMacro,
     ]
     user_css = []
     user_js = []

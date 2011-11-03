@@ -450,3 +450,38 @@ class IncludeMacro(Macro):
             result = result.expandtabs(tabsize)
 
         return result
+
+
+class GistMacro(Macro):
+    """This Macro includes a Gist in whole or with specified files."""
+
+    # Format strings for Gist embed scripts.
+    GIST_EMBED_FMT = '<script src="https://gist.github.com/%s.js%s"></script>'
+    GIST_ARG_FMT   = 'file=%s'
+
+    # Macro pattern.
+    gist_re   = re.compile(
+        r'(?P<leading><p>)(?P<macro>\.(gist):\s?)(?P<argline>.*?)(?P<trailing></p>\n?)',
+        re.DOTALL | re.UNICODE)
+
+    def process(self, content, source=None):
+        gist_matches = self.gist_re.finditer(content)
+        if gist_matches:
+            for match in gist_matches:
+                args  = match.group('argline').split()
+                if not args:
+                    self.logger(u"Missing gist argument", 'warning')
+                    break
+                gist_content = GistMacro.GIST_EMBED_FMT % (
+                    # gist no
+                    args[0],
+                    # files in the gist (optional)
+                    '&'.join(
+                            map((lambda f: GistMacro.GIST_ARG_FMT % f), args[1:])
+                    )
+                )
+                content = content.replace(match.group(0),
+                                          match.group('leading') +
+                                          gist_content +
+                                          match.group('trailing'), 1)
+        return content, []
