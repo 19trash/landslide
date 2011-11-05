@@ -1,3 +1,9 @@
+landslide (1:1.0.1-2xix1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Recai Oktaş <roktas@debian.org>  Sat, 05 Nov 2011 13:12:46 +0200
+
 landslide (1:1.0.0-2xix2) unstable; urgency=low
 
   * Add new macro: `GistMacro`, which includes a gist in whole or parts
