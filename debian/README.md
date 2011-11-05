@@ -22,7 +22,7 @@
         git checkout master
         git pull upstream master
 
-### Start new release
+### Start new Debian release
 
 - Create a new version by incrementing distro version.   For example
   `1:1.0.0-2xix1` becomes `1:1.0.0-2xix2`
@@ -31,6 +31,30 @@
 
         git dch -N 1:1.0.0-2xix2 -R
         git commit -m "Start a new package release"
+
+### Build package
+
+        git buildpackage
+
+Use `-sa` to force the inclusion of the original source.
+
+### Tag Debian release
+
+        git-buildpackage --git-tag
+
+### Upload package
+
+        dput 19 <.changes file>
+
+### Start new upstream release
+
+- Update from upstream
+
+- Start new Debian release
+
+- Build package
+
+- Tag Debian release
 
 ### New snapshot
 
@@ -55,12 +79,3 @@
 
         git dch -N 1:1.0.0-3xix2 -R
         git commit -m "Start a new package release"
-
-
-### Build package
-
-        git buildpackage -sa
-
-### Upload package
-
-        dput 19 <.changes file>
