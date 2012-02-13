@@ -148,7 +148,7 @@ class Generator(object):
                     raise IOError('%s user css file not found' % (css_path,))
                 self.user_css.append({
                     'path_url': utils.get_path_url(css_path, self.relative),
-                    'contents': open(css_path).read(),
+                    'contents': self.css_contents(css_path),
                 })
 
     def add_user_js(self, js_list):
@@ -290,14 +290,14 @@ class Generator(object):
 
         css['print'] = {
             'path_url': utils.get_path_url(print_css, self.relative),
-            'contents': open(print_css).read(),
+            'contents': self.css_contents(print_css),
         }
 
         screen_css = os.path.join(self.theme_dir, 'css', 'screen.css')
         if (os.path.exists(screen_css)):
             css['screen'] = {
                 'path_url': utils.get_path_url(screen_css, self.relative),
-                'contents': open(screen_css).read(),
+                'contents': self.css_contents(screen_css),
             }
         else:
             self.log(u"No screen stylesheet provided in current theme",
@@ -459,6 +459,24 @@ class Generator(object):
                 raise TypeError("Coundn't register macro; a macro must inherit"
                                 " from macro.Macro")
 
+    def css_contents(self, css_path):
+        """ Returns stylesheet content by optionally embedding the images.
+        """
+        contents = open(css_path).read()
+        if self.embed:
+            images = re.findall(r'\s+background(?:-image)?:\s*url\((.+?)\).+;',
+                                contents, re.DOTALL | re.UNICODE)
+            source_path = os.path.dirname(css_path)
+            for img_url in images:
+                img_url = img_url.replace('"', '').replace("'", '')
+
+                encoded_url = utils.encode_image_from_url(img_url, source_path)
+                self.logger(u"Embedded image %s in %s" % (img_url, css_path), 'notice')
+
+                contents = contents.replace(img_url, encoded_url, 1)
+
+        return contents
+
     def render(self):
         """ Returns generated html code.
         """
@@ -467,22 +485,7 @@ class Generator(object):
         slides = self.fetch_contents(self.source)
         context = self.get_template_vars(slides)
 
-        html = template.render(context)
-
-        if self.embed:
-            images = re.findall(r'\s+background(?:-image)?:\surl\((.+?)\).+;',
-                            html, re.DOTALL | re.UNICODE)
-
-            for img_url in images:
-                img_url = img_url.replace('"', '').replace("'", '')
-
-                source = os.path.join(THEMES_DIR, self.theme, 'css')
-
-                encoded_url = utils.encode_image_from_url(img_url, source)
-
-                html = html.replace(img_url, encoded_url, 1)
-
-        return html
+        return template.render(context)
 
     def write(self):
         """ Writes generated presentation code into the destination file.
