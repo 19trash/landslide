@@ -1,3 +1,17 @@
+landslide (1:1.0.1-3xix1) unstable; urgency=low
+
+  [ Recai Oktaş ]
+  * Improve Debian/README
+
+  [ Charles O'Farrell ]
+  * Issue #73: Fixed Firefox offset bug by calling event.preventDefault()
+
+  [ Recai Oktaş ]
+  * change export-dir in gpb.conf
+  * Fix and improve embedding images in CSS files
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 13 Feb 2012 16:19:45 +0200
+
 landslide (1:1.0.1-2xix1) unstable; urgency=low
 
   * New upstream release
