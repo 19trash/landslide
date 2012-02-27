@@ -4,11 +4,12 @@ landslide (1:1.0.1-4xix1) unstable; urgency=low
   * New configuration options: includepath, expandtabs
   * Update samples
   * Improve command line help
+  * Expand tilde in paths
   * Debian package: move gbp.conf to debian directory
   * Debian package: Add upstream-option to gbp.conf
   * Debian package: improve gbp.conf
 
- -- Recai Oktaş <roktas@debian.org>  Mon, 27 Feb 2012 18:54:46 +0200
+ -- Recai Oktaş <roktas@debian.org>  Mon, 27 Feb 2012 19:04:09 +0200
 
 landslide (1:1.0.1-3xix1) unstable; urgency=low
 
