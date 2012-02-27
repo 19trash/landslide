@@ -1,3 +1,13 @@
+landslide (1:1.0.1-4xix1) unstable; urgency=low
+
+  [ Recai Oktaş ]
+  * New configuration options: includepath, expandtabs
+  * Update samples
+  * Debian package: move gbp.conf to debian directory
+  * Debian package: Add upstream-option to gbp.conf
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 27 Feb 2012 18:08:43 +0200
+
 landslide (1:1.0.1-3xix1) unstable; urgency=low
 
   [ Recai Oktaş ]
