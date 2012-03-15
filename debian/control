@@ -1,4 +1,4 @@
-Source: landslide
+Source: landslide-patched
 Maintainer: Recai Oktaş <roktas@debian.org>
 Section: python
 Priority: optional
@@ -8,7 +8,7 @@ Homepage: https://github.com/00010011/landslide
 Vcs-Git: git://github.com/00010011/landslide.git
 Vcs-Browser: https://github.com/00010011/landslide
 
-Package: python-landslide
+Package: python-landslide-patched
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, python-pkg-resources
 Breaks: ${python:Breaks}

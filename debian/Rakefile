@@ -1,0 +1,187 @@
+# encoding: utf-8
+
+README = <<DOC
+New package release with source changes:
+
+  $ rake new_source
+  $ rake build
+
+New package release with only Debian packaging changes:
+
+  $ rake new_debian
+  $ rake build
+
+Working on a new feature:
+
+  $ git remote add upstream git://github.com/adamzap/landslide.git
+  $ git fetch upstream
+  $ git checkout -b <feature> upstream/master
+  ... work and commit
+  $ git checkout master
+  $ git merge <feature>
+  $ git checkout debian
+  $ git merge debian
+
+Update from upstream:
+
+  $ git checkout master
+  $ git pull upstream master
+  $ git checkout debian
+  $ git merge master
+
+Version: 1.0.1~12031400-0xix1 means:
+  1.0.1    → upstream version
+  ~
+  12031400 → 00 snapshot created at 14-03-2012
+  -
+  0xix     → a distro (xix) package with no official Debian package
+             <N>xix means a Debian package with the package version <N>
+  1        → first debian package for this snapshot
+DOC
+
+COMMIT_MESSAGE_WITH_DEBIAN_CHANGES = "Debian changes only."
+COMMIT_MESSAGE_WITH_SOURCE_CHANGES = "New snapshot."
+
+# Codify our versioning schema
+class Version
+  # create a version object from a version spec (a hash or string)
+  def initialize(arg, overwrite={})
+    @v =
+      case arg
+      when Hash
+        arg.merge(overwrite)
+      when String
+        parse(arg).merge(overwrite)
+      else
+        raise ArgumentError, "A version hash or string must be given"
+      end
+  end
+
+  # parse a version string
+  def parse(string)
+    Hash[
+      [:base, :snapshot, :vendor, :debian].zip(string.match(/
+        ([^~]+)~
+        ([^-]+)-
+        (\d+xix)
+        (\d+)
+      /x)[1..4])
+    ]
+  end
+
+  # compute next version object
+  def next_when_changed(what=:source)
+    case what
+    when :source
+      today = Time.new.strftime("%y%m%d")
+      self.class.new @v,
+        :snapshot => @v[:snapshot].start_with?(today) ? @v[:snapshot].succ : today+'00'
+    when :debian # only debian packaging files were changed
+      self.class.new @v.merge :debian => @v[:debian].succ
+    else
+      raise ArgumentError, "what changed?"
+    end
+  end
+
+  # assemble source version
+  def source(v={})
+    (v[:base] || @v[:base]) + '~' + (v[:snapshot] || @v[:snapshot])
+  end
+
+  # all version parts should be accessable via fallback
+  def method_missing(key, *)
+    super unless @v.has_key? key
+    @v[key]
+  end
+
+  # assemble a version from version parts
+  def to_s
+    source + '-' + @v[:vendor] + @v[:debian]
+  end
+end
+
+def die(msg); $stderr.puts msg; exit 1; end
+
+def git_modified
+  `git ls-files -m 2>/dev/null`.chomp.empty?
+end
+
+def new_release_with(version, message)
+  sh "git-dch --auto --release --new-version '#{version}'"
+  sh "git commit debian/changelog -m '#{message}'"
+end
+
+chdir '..' unless File.exist? 'setup.py'
+die "No setup.py found" unless File.exist? 'setup.py'
+
+task :init do
+  SOURCE = %x(dpkg-parsechangelog)[/^Source: (.+)$/, 1] unless defined? SOURCE
+  VERSION = Version.new(
+    %x(dpkg-parsechangelog)[/^Version: (.+)$/, 1],
+    :base => %x(python setup.py --version).chomp
+  ) unless defined? VERSION
+end
+
+task :clean? do
+  git_modified or die "Repository must be at a clean state"
+end
+
+desc "test source"
+task :test do
+  sh " PYTHONPATH='./src/landslide' python src/landslide/tests.py"
+end
+
+desc "upload package"
+task :upload => :init do
+  require 'pythonconfig'
+  gbp_conf = 'debian/gbp.conf'
+  export_dir = File.expand_path(
+    if File.exist? gbp_conf
+      File.read(gbp_conf)[/^export-dir\s*=\s*(.*)$/, 1]
+    end || '.'
+  )
+  chdir export_dir do
+    changes_file = (FileList["#{SOURCE}_#{VERSION}*.changes"] || []).first || ''
+    if not changes_file.empty?
+      # sh "dput 19 #{changes_file}"
+      puts "#{changes_file}"
+    else
+      die "No changes file found for version '#{VERSION}' under #{export_dir}"
+    end
+  end
+end
+
+desc "prepare new release with source changes"
+task :new_source => [:init, :clean?, :test] do
+  new_release_with(
+    VERSION.next_when_changed(:source), COMMIT_MESSAGE_WITH_SOURCE_CHANGES
+  )
+end
+
+desc "prepare new release with Debian changes"
+task :new_debian => [:init, :clean?, :test] do
+  new_release_with(
+    VERSION.next_when_changed(:debian), COMMIT_MESSAGE_WITH_DEBIAN_CHANGES
+  )
+end
+
+desc "build package"
+task :build do
+  sh "git-buildpackage --git-tag"
+end
+
+desc "prepare and build package with source changes"
+task :all => [:new_source, :build]
+
+desc "prepare and build package with Debian changes"
+task :'all-debian' => [:new_debian, :build]
+
+task :default => :init do
+  puts '-'*72
+  puts README
+  puts '-'*72
+  puts "Current Package: #{VERSION}"
+  puts "Next source:     #{VERSION.next_when_changed :source}"
+  puts "Next debian:     #{VERSION.next_when_changed :debian}"
+  puts '-'*72
+end
