@@ -39,8 +39,8 @@ Version: 1.0.1~12031400-0xix1 means:
   1        → first debian package for this snapshot
 DOC
 
-COMMIT_MESSAGE_WITH_DEBIAN_CHANGES = "Debian changes only."
-COMMIT_MESSAGE_WITH_SOURCE_CHANGES = "New snapshot."
+COMMIT_MESSAGE_WITH_DEBIAN_CHANGES = "Debian changes only"
+COMMIT_MESSAGE_WITH_SOURCE_CHANGES = "New snapshot"
 
 # Codify our versioning schema
 class Version
