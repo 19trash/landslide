@@ -480,7 +480,7 @@ class Generator(object):
         contents = open(css_path).read()
         if self.embed:
             images = re.findall(r'\s+background(?:-image)?:\s*url\((.+?)\).+;',
-                                contents, re.DOTALL | re.UNICODE)
+                                contents, re.UNICODE)
             source_path = os.path.dirname(css_path)
             for img_url in images:
                 img_url = img_url.replace('"', '').replace("'", '')

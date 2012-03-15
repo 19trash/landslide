@@ -154,7 +154,7 @@ echo $bar;
 </pre>
 <p>Then this other one:</p>
 <pre class="literal-block">
-!xml
+!!xml
 <foo>
     <bar glop="yataa">baz</bar>
 </foo>
@@ -165,12 +165,15 @@ echo $bar;
         m = macro.CodeHighlightingMacro(self.logtest)
         blocks = m.code_blocks_re.findall(self.sample_html)
         self.assertEquals(len(blocks), 3)
-        self.assertEquals(blocks[0][2], 'python')
-        self.assertTrue(blocks[0][3].startswith('def foo():'))
-        self.assertEquals(blocks[1][2], 'php')
-        self.assertTrue(blocks[1][3].startswith('<?php'))
-        self.assertEquals(blocks[2][2], 'xml')
-        self.assertTrue(blocks[2][3].startswith('<foo>'))
+        self.assertEquals(blocks[0][2], '!')
+        self.assertEquals(blocks[0][3], 'python')
+        self.assertTrue(blocks[0][4].startswith('def foo():'))
+        self.assertEquals(blocks[1][2], '!')
+        self.assertEquals(blocks[1][3], 'php')
+        self.assertTrue(blocks[1][4].startswith('<?php'))
+        self.assertEquals(blocks[2][2], '!!')
+        self.assertEquals(blocks[2][3], 'xml')
+        self.assertTrue(blocks[2][4].startswith('<foo>'))
 
     def test_descape(self):
         m = macro.CodeHighlightingMacro(self.logtest)
