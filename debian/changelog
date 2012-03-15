@@ -1,4 +1,4 @@
-landslidei-patched (1.0.1~12031500-0xix1) unstable; urgency=low
+landslide-patched (1.0.1~12031500-0xix1) unstable; urgency=low
 
   [ Recai Oktaş ]
   * Debian package: rename package to landslide-patched
