@@ -360,6 +360,12 @@ class IncludeMacroTest(BaseTestCase):
         content, classes = m.process('<p>.coden: src/day.c /.+wednesday/</p>', source)
         self.assertTrue(re.search(r'"lineno"> *1<.*>\s?[ ]{' + str(ts) + '}<.*wednesday', content))
         m.options['expandtabs'] = expandtabs_old
+    def test_process_option_expandtabs_per_macro(self):
+        source = os.path.join(SAMPLES_DIR, 'example5', 'slides.md')
+        m = macro.IncludeMacro(self.logtest)
+        ts = 2
+        content, classes = m.process('<p>.coden' + str(ts) + ': src/day.c /.+wednesday/</p>', source)
+        self.assertTrue(re.search(r'"lineno"> *1<.*>\s?[ ]{' + str(ts) + '}<.*wednesday', content))
 
 
 class ParserTest(BaseTestCase):

@@ -216,3 +216,14 @@ Expanding Tabs
         expandtabs=4
 
 - Use 0 or a negative value for "`expandtabs`" to keep tabs.
+
+---
+
+Expanding Tabs per Macro
+------------------------
+
+Append an integer to macro name to setup `expandtabs` for that macro execution:
+
+        .code2: src/day.c /.+wednesday/ /.+friday/
+
+.code2: src/day.c /.+wednesday/ /.+friday/
