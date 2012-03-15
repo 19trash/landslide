@@ -6,6 +6,13 @@ landslide-patched (1.0.1~12031500-0xix1) unstable; urgency=low
   * Debian package: add a debian/Rakefile for maintainance
   * Debian package: remove README.md (see debian/Rakefile)
 
+  * Allow setting expandtabs per included file
+  * Bug fix: expandtabs must take an integer value
+  * Enable linenos in code blocks
+  * Bug fix: Fix regex flags for image urls
+  * Enable linenos if multiple '!'s exist
+  * Bug fix: no match at first line
+
  -- Recai Oktaş <roktas@debian.org>  Thu, 15 Mar 2012 06:19:58 +0200
 
 landslide (1:1.0.1-4xix1) unstable; urgency=low
