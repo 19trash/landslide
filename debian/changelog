@@ -1,3 +1,10 @@
+landslide-patched (1.0.1~12031501-0xix2) unstable; urgency=low
+
+  * Tweak font size in pre areas
+  * Add an example and test for expandtabs per macro
+
+ -- Recai Oktaş <roktas@debian.org>  Thu, 15 Mar 2012 14:45:41 +0200
+
 landslide-patched (1.0.1~12031500-0xix2) unstable; urgency=low
 
   * Debian package: Enable uploads in Rakefile
