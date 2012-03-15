@@ -1,3 +1,10 @@
+landslide-patched (1.0.1~12031500-0xix2) unstable; urgency=low
+
+  * Debian package: Enable uploads in Rakefile
+  * Debian package: conflicts with python-landslide
+
+ -- Recai Oktaş <roktas@debian.org>  Thu, 15 Mar 2012 06:42:19 +0200
+
 landslide-patched (1.0.1~12031500-0xix1) unstable; urgency=low
 
   [ Recai Oktaş ]
