@@ -143,8 +143,7 @@ task :upload => :init do
   chdir export_dir do
     changes_file = (FileList["#{SOURCE}_#{VERSION}*.changes"] || []).first || ''
     if not changes_file.empty?
-      # sh "dput 19 #{changes_file}"
-      puts "#{changes_file}"
+      sh "dput 19 #{changes_file}"
     else
       die "No changes file found for version '#{VERSION}' under #{export_dir}"
     end
