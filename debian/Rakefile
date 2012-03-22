@@ -75,7 +75,8 @@ class Version
     when :source
       today = Time.new.strftime("%y%m%d")
       self.class.new @v,
-        :snapshot => @v[:snapshot].start_with?(today) ? @v[:snapshot].succ : today+'00'
+        :snapshot => @v[:snapshot].start_with?(today) ? @v[:snapshot].succ : today+'00',
+        :debian   => '1'
     when :debian # only debian packaging files were changed
       self.class.new @v.merge :debian => @v[:debian].succ
     else
