@@ -1,3 +1,10 @@
+landslide-patched (1.0.1~12032200-0xix1) unstable; urgency=low
+
+  * Relax regular expression to catch urls in CSS
+  * Debian package: Reset debian version in new source versions
+
+ -- Recai Oktaş <roktas@debian.org>  Thu, 22 Mar 2012 05:10:19 +0200
+
 landslide-patched (1.0.1~12031502-0xix2) unstable; urgency=low
 
   * Use absolute font sizes
