@@ -475,20 +475,19 @@ class Generator(object):
                                 " from macro.Macro")
 
     def css_contents(self, css_path):
-        """ Returns stylesheet content by optionally embedding the images.
+        """ Returns stylesheet content by optionally embedding images and fonts.
         """
         contents = open(css_path).read()
         if self.embed:
-            images = re.findall(r'\s+background(?:-image)?:\s*url\((.+?)\).+;',
-                                contents, re.UNICODE)
+            urls = re.findall(r'\burl\((.+?)\)', contents, re.UNICODE)
             source_path = os.path.dirname(css_path)
-            for img_url in images:
-                img_url = img_url.replace('"', '').replace("'", '')
-
-                encoded_url = utils.encode_image_from_url(img_url, source_path)
-                self.logger(u"Embedded image %s in %s" % (img_url, css_path), 'notice')
-
-                contents = contents.replace(img_url, encoded_url, 1)
+            for url in urls:
+                url = url.replace('"', '').replace("'", '')
+                encoded_url = utils.encode_image_from_url(url, source_path)
+                if encoded_url is not False:
+                    self.logger(u"Embedded image %s in %s" %
+                                (url, css_path), 'notice')
+                    contents = contents.replace(url, encoded_url, 1)
 
         return contents
 
