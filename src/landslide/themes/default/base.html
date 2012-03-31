@@ -24,7 +24,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta id="viewport" name="viewport" content="user-scalable=no" />
     <title>{{ head_title }}</title>
     <!-- Styles -->
     {% if embed %}
@@ -69,6 +71,34 @@
 </head>
 <body>
   <div id="blank"></div>
+
+  <nav id="left">
+    <menu id="top">
+      <button title="Previous slide" id="prev" class="prev">«</button>
+    </menu>
+    <div id="blank"></div>
+    <menu id="bottom">
+      <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+      <button type="checkbox" data-command="numbers" title="Show Slide Numbers">#</button>
+      <button type="checkbox" data-command="overview" title="Overview">↻</button>
+      <button type="checkbox" data-command="notes" title="View Slide Notes">✏</button>
+      <button type="checkbox" data-command="help" title="View Help">?</button>
+    </menu>
+  </nav>
+  <nav id="right">
+    <menu id="top">
+      <button title="Next slide" id="next" class="next">»</button>
+    </menu>
+    <div id="blank"></div>
+    <menu id="bottom">
+      <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+      <button type="checkbox" data-command="numbers" title="Show Slide Numbers">#</button>
+      <button type="checkbox" data-command="overview" title="Overview">↻</button>
+      <button type="checkbox" data-command="notes" title="View Slide Notes">✏</button>
+      <button type="checkbox" data-command="help" title="View Help">?</button>
+    </menu>
+  </nav>
+
   <div class="presentation">
     <div id="current_presenter_notes">
       <div id="presenter_note"></div>

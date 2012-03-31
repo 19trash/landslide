@@ -501,6 +501,42 @@ function main() {
         }
     };
 
+    var addButtonClickListeners = function() {
+        var buttons = document.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons.item(i).addEventListener('click', function(e) {
+                var n = e.target.getAttribute('data-command');
+                switch(n) {
+                case 'toc':
+                    showToc(); break;
+                case 'notes':
+                    showNotes(); break;
+                case 'numbers':
+                    showSlideNumbers(); break;
+                case 'overview':
+                    toggleOverview(); break;
+                case 'context':
+                    toggleContext(); break;
+                case 'blank':
+                    toggleBlank(); break;
+                case 'help':
+                    showHelp(); break;
+                default:
+                    return;
+                }
+            }, true);
+        }
+        var action = {
+            'prev': function(e) { prevSlide() },
+            'next': function(e) { nextSlide() }
+        };
+        for (var name in action) {
+            var buttons = document.querySelectorAll('#' + name);
+            for (var i = 0; i < buttons.length; i++)
+                buttons.item(i).addEventListener('click', action[name], true);
+        }
+    };
+
     var addRemoteWindowControls = function() {
         window.addEventListener("message", function(e) {
             if (e.data.indexOf("slide#") != -1) {
@@ -555,6 +591,11 @@ function main() {
             currentSlideNo = Number(window.location.hash.replace('#slide', ''));
         }
 
+        // disable context on small screens
+        if (window.screen.availWidth < 1280) {
+            hiddenContext = true;
+        }
+
         document.addEventListener('keyup', checkModifierKeyUp, false);
         document.addEventListener('keydown', handleBodyKeyDown, false);
         document.addEventListener('keydown', checkModifierKeyDown, false);
@@ -574,6 +615,8 @@ function main() {
         addTocLinksListeners();
 
         addSlideClickListeners();
+
+        addButtonClickListeners();
 
         addRemoteWindowControls();
     })();
