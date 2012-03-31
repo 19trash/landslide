@@ -1,3 +1,10 @@
+landslide-patched (1.0.1~12040100-0xix1) unstable; urgency=low
+
+  * Readjust fixed width fonts
+  * Enhancements for touch screen devices
+
+ -- Recai Oktaş <roktas@debian.org>  Sun, 01 Apr 2012 02:22:02 +0300
+
 landslide-patched (1.0.1~12032200-0xix1) unstable; urgency=low
 
   * Relax regular expression to catch urls in CSS
