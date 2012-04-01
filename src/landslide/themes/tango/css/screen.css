@@ -408,30 +408,8 @@ nav {
   width: 100px;
   height: 98%;
 }
-nav:hover {
+nav:hover, nav.hover {
   opacity: 0.4;
-}
-
-nav button {
-  background-color: #222;
-  border: none;
-  color: white;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
-  height: 16%;
-  font-size: 25px;
-  font-family: monospace;
-  margin-top: 10%;
-}
-nav button:hover {
-  opacity: 1.0;
-}
-
-nav menu button#prev, button#next {
-  margin-top: 40%;
-  height: 60%;
-  font-size: 40px;
 }
 
 nav#left {
@@ -448,20 +426,38 @@ nav#right {
 nav menu {
   padding: 0;
   display: block;
-  height: 32%;
+  height: 40%;
   width: inherit;
   position: fixed;
 }
-nav > div#blank {
-  height: auto;
-}
-
 nav menu#top {
-  top: 0;
+  top: 5%;
 }
 nav menu#bottom {
   top: auto;
-  bottom: 0;
+  bottom: 3%;
+}
+
+nav menu button {
+  background-color: #222;
+  border: none;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 19%;
+  font-size: 24px;
+  font-family: monospace;
+  margin-top: 1%;
+}
+nav menu button:hover {
+  opacity: 1.0;
+}
+nav menu button#prev, nav menu button#next {
+  margin-top: 0;
+  padding-top: 0;
+  height: 40%;
+  font-size: 40px;
 }
 
 /* Pygments default theme */

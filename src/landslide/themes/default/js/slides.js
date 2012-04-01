@@ -501,42 +501,6 @@ function main() {
         }
     };
 
-    var addButtonClickListeners = function() {
-        var buttons = document.querySelectorAll('button');
-        for (var i = 0; i < buttons.length; i++) {
-            buttons.item(i).addEventListener('click', function(e) {
-                var n = e.target.getAttribute('data-command');
-                switch(n) {
-                case 'toc':
-                    showToc(); break;
-                case 'notes':
-                    showNotes(); break;
-                case 'numbers':
-                    showSlideNumbers(); break;
-                case 'overview':
-                    toggleOverview(); break;
-                case 'context':
-                    toggleContext(); break;
-                case 'blank':
-                    toggleBlank(); break;
-                case 'help':
-                    showHelp(); break;
-                default:
-                    return;
-                }
-            }, true);
-        }
-        var action = {
-            'prev': function(e) { prevSlide() },
-            'next': function(e) { nextSlide() }
-        };
-        for (var name in action) {
-            var buttons = document.querySelectorAll('#' + name);
-            for (var i = 0; i < buttons.length; i++)
-                buttons.item(i).addEventListener('click', action[name], true);
-        }
-    };
-
     var addRemoteWindowControls = function() {
         window.addEventListener("message", function(e) {
             if (e.data.indexOf("slide#") != -1) {
@@ -572,6 +536,51 @@ function main() {
                     updateSlideClasses(true);
                     e.preventDefault();
                 }, true);
+            }
+        }
+    };
+
+    var addMenuListeners = function() {
+        var buttons = document.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons.item(i).addEventListener('click', function(e) {
+                var n = e.target.getAttribute('data-command');
+                switch(n) {
+                case 'toc':
+                    showToc(); break;
+                case 'notes':
+                    showNotes(); break;
+                case 'numbers':
+                    showSlideNumbers(); break;
+                case 'overview':
+                    toggleOverview(); break;
+                case 'context':
+                    toggleContext(); break;
+                case 'blank':
+                    toggleBlank(); break;
+                case 'help':
+                    showHelp(); break;
+                default:
+                    return;
+                }
+            }, true);
+        }
+        var action = {
+            'prev': function(e) { prevSlide() },
+            'next': function(e) { nextSlide() }
+        };
+        for (var name in action) {
+            var buttons = document.querySelectorAll('#' + name);
+            for (var i = 0; i < buttons.length; i++)
+                buttons.item(i).addEventListener('click', action[name], true);
+        }
+
+        if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)) {
+            var navs = document.getElementsByTagName('nav');
+            for (var i = 0; i < navs.length; i++) {
+                navs.item(i).addEventListener('touchstart', function() {
+                    this.className = (this.className == 'hover') ? '' : 'hover';
+                }, false);
             }
         }
     };
@@ -612,11 +621,11 @@ function main() {
         // add support for finger events (filter it by property detection?)
         addTouchListeners();
 
+        addMenuListeners();
+
         addTocLinksListeners();
 
         addSlideClickListeners();
-
-        addButtonClickListeners();
 
         addRemoteWindowControls();
     })();
