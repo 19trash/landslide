@@ -1,3 +1,9 @@
+landslide-patched (1.0.1~12040200-0xix1) unstable; urgency=low
+
+  * Improve touch screen enhancements
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 02 Apr 2012 01:42:53 +0300
+
 landslide-patched (1.0.1~12040100-0xix1) unstable; urgency=low
 
   * Readjust fixed width fonts
