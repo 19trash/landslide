@@ -442,8 +442,9 @@ nav menu button:hover {
 }
 nav menu button#prev, nav menu button#next {
   margin-top: 0;
+  margin-bottom: 1%;
   padding-top: 0;
-  height: 40%;
+  height: 25%;
   font-size: 40px;
 }
 
