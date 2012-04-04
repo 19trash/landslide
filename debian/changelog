@@ -1,3 +1,9 @@
+landslide-patched (1.0.1~12040400-0xix1) unstable; urgency=low
+
+  * Hide context when in iframe
+
+ -- Recai Oktaş <roktas@debian.org>  Wed, 04 Apr 2012 16:34:43 +0300
+
 landslide-patched (1.0.1~12040201-0xix1) unstable; urgency=low
 
   * Make both navigation bars functionally equivalent
