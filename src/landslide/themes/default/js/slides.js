@@ -600,8 +600,8 @@ function main() {
             currentSlideNo = Number(window.location.hash.replace('#slide', ''));
         }
 
-        // disable context on small screens
-        if (window.screen.availWidth < 1280) {
+        // hide context on small screens and iframes
+        if (window.screen.availWidth < 1280 || top != self) {
             hiddenContext = true;
         }
 
