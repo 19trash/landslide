@@ -1,3 +1,19 @@
+landslide-patched (1.0.1~12042600-0xix1) unstable; urgency=low
+
+  [ Lin Jen-Shin ]
+  * generator.py: Run macros on headers, too, to embed images, see:
+
+  [ Anthony VEREZ ]
+  * add a sample slide in example1 using presenter notes
+
+  [ Adam Zapletal ]
+  * Improve example1's presenter notes slide
+
+  [ Recai Oktaş ]
+  * Merge from upstream.
+
+ -- Recai Oktaş <roktas@debian.org>  Thu, 26 Apr 2012 23:37:36 +0300
+
 landslide-patched (1.0.1~12040400-0xix1) unstable; urgency=low
 
   * Hide context when in iframe
