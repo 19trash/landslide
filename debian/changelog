@@ -1,3 +1,9 @@
+landslide-patched (1.0.1~12043001-0xix1) unstable; urgency=low
+
+  * Now with SmartyPants.
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 30 Apr 2012 05:52:39 +0300
+
 landslide-patched (1.0.1~12043000-0xix1) unstable; urgency=low
 
   * Add support for Misaka: Sundown parser for Python.
