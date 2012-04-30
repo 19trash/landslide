@@ -51,9 +51,33 @@ class CodeHighlightingMacro(Macro):
     """This Macro performs syntax coloration in slide code blocks using
        Pygments.
     """
-    code_blocks_re = re.compile(
-        r'(<pre.+?>(<code>)?\s?(!+)(\w+?)\n(.*?)(</code>)?</pre>)',
-        re.UNICODE | re.MULTILINE | re.DOTALL)
+    banged_blocks_re = re.compile(r"""
+        (?P<block>
+            <pre.+?>
+            (<code>)?
+            \s?
+            (?P<pound> [#]? )
+            [!]+
+            (?P<lang> \w+? )\n
+            (?P<code> .*? )
+            (</code>)?
+            </pre>
+        )
+        """, re.VERBOSE | re.UNICODE | re.MULTILINE | re.DOTALL)
+    fenced_blocks_re = re.compile(r"""
+        (?P<block>
+            <pre>
+            <code
+                \s+class=
+                (?P<q> ["'] )
+                (?P<pound> [#]? )
+                (?P<lang> \w+? )
+                (?P=q)
+            >
+            (?P<code> .*? )
+            (</code>)?</pre>
+        )
+        """, re.VERBOSE | re.UNICODE | re.MULTILINE | re.DOTALL)
 
     html_entity_re = re.compile('&(\w+?);')
 
@@ -64,32 +88,36 @@ class CodeHighlightingMacro(Macro):
         f = lambda m: defs[m.group(1)] if len(m.groups()) > 0 else m.group(0)
         return self.html_entity_re.sub(f, string)
 
-    def process(self, content, source=None):
-        code_blocks = self.code_blocks_re.findall(content)
-        if not code_blocks:
-            return content, []
+    def pygmentize(self, content, match, has_linenos=False):
+        block, lang, code = match.group('block'), match.group('lang'), match.group('code')
+        try:
+            lexer = get_lexer_by_name(lang)
+        except Exception:
+            self.logger(u"Unknown pygment lexer \"%s\", skipping"
+                        % lang, 'warning')
+            return content
 
+        has_linenos = self.options['linenos'] if not match.group('pound') else True
+
+        formatter = HtmlFormatter(linenos=has_linenos,
+                                    nobackground=True)
+        pretty_code = pygments.highlight(self.descape(code), lexer,
+                                            formatter)
+        return content.replace(block, pretty_code, 1)
+
+    def process(self, content, source=None):
         if 'linenos' not in self.options or self.options['linenos'] =='no':
             self.options['linenos'] = False
-
         classes = []
-        for block, void1, bangs, lang, code, void2 in code_blocks:
-            try:
-                lexer = get_lexer_by_name(lang)
-            except Exception:
-                self.logger(u"Unknown pygment lexer \"%s\", skipping"
-                            % lang, 'warning')
-                return content, classes
+        for block_re in (self.banged_blocks_re, self.fenced_blocks_re):
+            blocks = block_re.finditer(content)
+            if not blocks:
+                continue
+            classes = [u'has_code']
+            for match in blocks:
+                content = self.pygmentize(content, match)
 
-            has_linenos = self.options['linenos'] if bangs == '!' else True
-
-            formatter = HtmlFormatter(linenos=has_linenos,
-                                      nobackground=True)
-            pretty_code = pygments.highlight(self.descape(code), lexer,
-                                             formatter)
-            content = content.replace(block, pretty_code, 1)
-
-        return content, [u'has_code']
+        return content, classes
 
 
 class EmbedImagesMacro(Macro):
@@ -461,7 +489,7 @@ class GistMacro(Macro):
     """This Macro includes a Gist in whole or with specified files."""
 
     # Format strings for Gist embed scripts.
-    GIST_EMBED_FMT = '<script src="https://gist.github.com/%s.js%s"></script>'
+    GIST_EMBED_FMT = '<script src="https://gist.github.com/%s.js?%s"></script>'
     GIST_ARG_FMT   = 'file=%s'
 
     # Macro pattern.
