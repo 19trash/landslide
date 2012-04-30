@@ -96,20 +96,19 @@ class Parser(object):
             if text.startswith(u'\ufeff'):  # check for unicode BOM
               text = text[1:]
             m = self.module
-            return m.Markdown(
-                m.HtmlRenderer(
-                    flags=
-                        m.HTML_ESCAPE |
-                        m.HTML_USE_XHTML
-                    ),
-                    extensions=
-                        m.EXT_NO_INTRA_EMPHASIS |
-                        m.EXT_FENCED_CODE |
-                        m.EXT_SUPERSCRIPT |
-                        m.EXT_AUTOLINK |
-                        m.EXT_STRIKETHROUGH |
-                        m.EXT_TABLES
-                ).render(text)
+            return m.html(text,
+                render_flags=
+                    m.HTML_ESCAPE |
+                    m.HTML_USE_XHTML |
+                    m.HTML_SMARTYPANTS,
+                extensions=
+                    m.EXT_NO_INTRA_EMPHASIS |
+                    m.EXT_FENCED_CODE |
+                    m.EXT_SUPERSCRIPT |
+                    m.EXT_AUTOLINK |
+                    m.EXT_STRIKETHROUGH |
+                    m.EXT_TABLES
+            )
         elif self.driver == 'rst':
             html = self.module.html_body(text, input_encoding=self.encoding)
             # RST generates pretty much markup to be removed in our case
