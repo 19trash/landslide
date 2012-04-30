@@ -370,9 +370,9 @@ class IncludeMacroTest(BaseTestCase):
 
 class ParserTest(BaseTestCase):
     def test___init__(self):
-        self.assertEquals(Parser('.md').format, 'markdown')
-        self.assertEquals(Parser('.markdown').format, 'markdown')
-        self.assertEquals(Parser('.rst').format, 'restructuredtext')
+        self.assertEquals(Parser('.md', logger=self.logtest).format, 'markdown')
+        self.assertEquals(Parser('.markdown', logger=self.logtest).format, 'markdown')
+        self.assertEquals(Parser('.rst', logger=self.logtest).format, 'restructuredtext')
         self.assertRaises(NotImplementedError, Parser, '.txt')
 
 
