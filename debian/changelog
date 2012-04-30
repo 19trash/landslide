@@ -1,3 +1,11 @@
+landslide-patched (1.0.1~12043000-0xix1) unstable; urgency=low
+
+  * Add support for Misaka: Sundown parser for Python.
+  * Suggest python-misaka
+  * Update parser tests
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 30 Apr 2012 04:26:24 +0300
+
 landslide-patched (1.0.1~12042600-0xix1) unstable; urgency=low
 
   [ Lin Jen-Shin ]
