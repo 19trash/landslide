@@ -236,8 +236,8 @@ class Generator(object):
                 slides.extend(self.fetch_contents(os.path.join(source, entry)))
         else:
             try:
-                parser = Parser(os.path.splitext(source)[1], self.encoding,
-                    self.extensions)
+                parser = Parser(os.path.splitext(source)[1], encoding=self.encoding,
+                    md_extensions=self.extensions, logger=self.logger)
             except NotImplementedError:
                 return slides
 
@@ -250,7 +250,7 @@ class Generator(object):
                 self.log(u"Unable to decode source %s: skipping" % source,
                          'warning')
             else:
-                inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
+                inner_slides = re.split(r'<hr.*>', parser.parse(file_contents))
                 for inner_slide in inner_slides:
                     slides.append(self.get_slide_vars(inner_slide, source))
 
