@@ -110,11 +110,8 @@ class CodeHighlightingMacro(Macro):
             self.options['linenos'] = False
         classes = []
         for block_re in (self.banged_blocks_re, self.fenced_blocks_re):
-            blocks = block_re.finditer(content)
-            if not blocks:
-                continue
-            classes = [u'has_code']
-            for match in blocks:
+            for match in block_re.finditer(content):
+                classes = [u'has_code']
                 content = self.pygmentize(content, match)
 
         return content, classes
@@ -238,72 +235,70 @@ class IncludeMacro(Macro):
     class Error(Exception): pass
 
     def process(self, content, source=None):
-        include_matches = self.include_re.finditer(content)
-        if include_matches:
-            self.options['expandtabs']  = self.options.get('expandtabs',
-                                                           IncludeMacro.EXPANDTABS)
-            self.options['includepath'] = self.options.get('includepath',
-                                                           IncludeMacro.INCLUDEPATH)
-            for match in include_matches:
-                macro   = match.group('macro')
-                argline = match.group('argline')
-                context = macro + ' ' + argline
+        self.options['expandtabs']  = self.options.get('expandtabs',
+                                                        IncludeMacro.EXPANDTABS)
+        self.options['includepath'] = self.options.get('includepath',
+                                                        IncludeMacro.INCLUDEPATH)
+        for match in self.include_re.finditer(content):
+            macro   = match.group('macro')
+            argline = match.group('argline')
+            context = macro + ' ' + argline
 
-                expandtabs = match.group('expandtabs')
-                if expandtabs != '': expandtabs = int(expandtabs)
+            expandtabs = match.group('expandtabs')
+            if expandtabs != '': expandtabs = int(expandtabs)
 
-                try:
-                    include_file, start, stop = self.parse_argline(argline)
-                    found = self.locate_file(include_file, source)
-                    if not found:
-                        raise IncludeMacro.Error("couldn't locate file \"%s\" from include path \"%s\""
-                                                 % (include_file, self.options['includepath']))
-                    include_file = found
+            try:
+                include_file, start, stop = self.parse_argline(argline)
+                found = self.locate_file(include_file, source)
+                if not found:
+                    raise IncludeMacro.Error("couldn't locate file \"%s\" from include path \"%s\""
+                                                % (include_file, self.options['includepath']))
+                include_file = found
 
-                    include_content = self.get_lines(include_file, start, stop,
-                                                     expandtabs)
+                include_content = self.get_lines(include_file, start, stop,
+                                                 expandtabs)
 
-                    if '.code' in macro:
-                        if '.coden' in macro:
-                            # .coden
-                            self.options['linenos'] = 'inline'
-                            lineno_status = 'with linenos'
-                        else:
-                            # .code
-                            self.options['linenos'] = False
-                            lineno_status = ''
-                        self.logger(u"Including file \"%s\" as code %s"
-                                    % (include_file, lineno_status), 'notice')
-
-                        try:
-                            # Try to guess language from file extension.
-                            lexer = get_lexer_for_filename(include_file)
-                        except Exception:
-                            try:
-                                # Otherwise fallback to examine the file content.
-                                # Note that this may produce wrong guesses for a small file.
-                                lexer = guess_lexer(content)
-                            except Exception:
-                                self.logger(u"No available pygment lexer found; skipping highlighting",
-                                            'warning')
-                                return content
-
-                        formatter = HtmlFormatter(linenos=self.options['linenos'],
-                                                nobackground=True)
-                        include_content = pygments.highlight(include_content, lexer, formatter)
+                if '.code' in macro:
+                    if '.coden' in macro:
+                        # .coden
+                        self.options['linenos'] = 'inline'
+                        lineno_status = 'with linenos'
                     else:
-                        # .include
-                        self.logger(u"Including file \"%s\" as is" % include_file, 'notice')
+                        # .code
+                        self.options['linenos'] = False
+                        lineno_status = ''
+                    self.logger(u"Including file \"%s\" as code %s"
+                                % (include_file, lineno_status), 'notice')
 
-                    content = content.replace(match.group(0),
-                                    match.group('leading') +
-                                    include_content +
-                                    match.group('trailing'), 1)
-                except IncludeMacro.Error, e:
-                    self.logger(u"Include error at \"%s\": %s" % (context, e), 'warning')
-                except Exception, e:
-                    self.logger(u"Unexpected error at \"%s\": %s; please report a bug"
-                                % (context, e), 'warning')
+                    try:
+                        # Try to guess language from file extension.
+                        lexer = get_lexer_for_filename(include_file)
+                    except Exception:
+                        try:
+                            # Otherwise fallback to examine the file content.
+                            # Note that this may produce wrong guesses for a small file.
+                            lexer = guess_lexer(content)
+                        except Exception:
+                            self.logger(u"No available pygment lexer found; skipping highlighting",
+                                        'warning')
+                            return content
+
+                    formatter = HtmlFormatter(linenos=self.options['linenos'],
+                                            nobackground=True)
+                    include_content = pygments.highlight(include_content, lexer, formatter)
+                else:
+                    # .include
+                    self.logger(u"Including file \"%s\" as is" % include_file, 'notice')
+
+                content = content.replace(match.group(0),
+                                match.group('leading') +
+                                include_content +
+                                match.group('trailing'), 1)
+            except IncludeMacro.Error, e:
+                self.logger(u"Include error at \"%s\": %s" % (context, e), 'warning')
+            except Exception, e:
+                self.logger(u"Unexpected error at \"%s\": %s; please report a bug"
+                            % (context, e), 'warning')
 
         return content, []
 
@@ -498,23 +493,21 @@ class GistMacro(Macro):
         re.DOTALL | re.UNICODE)
 
     def process(self, content, source=None):
-        gist_matches = self.gist_re.finditer(content)
-        if gist_matches:
-            for match in gist_matches:
-                args  = match.group('argline').split()
-                if not args:
-                    self.logger(u"Missing gist argument", 'warning')
-                    break
-                gist_content = GistMacro.GIST_EMBED_FMT % (
-                    # gist no
-                    args[0],
-                    # files in the gist (optional)
-                    '&'.join(
-                            map((lambda f: GistMacro.GIST_ARG_FMT % f), args[1:])
-                    )
+        for match in self.gist_re.finditer(content):
+            args  = match.group('argline').split()
+            if not args:
+                self.logger(u"Missing gist argument", 'warning')
+                break
+            gist_content = GistMacro.GIST_EMBED_FMT % (
+                # gist no
+                args[0],
+                # files in the gist (optional)
+                '&'.join(
+                        map((lambda f: GistMacro.GIST_ARG_FMT % f), args[1:])
                 )
-                content = content.replace(match.group(0),
-                                          match.group('leading') +
-                                          gist_content +
-                                          match.group('trailing'), 1)
+            )
+            content = content.replace(match.group(0),
+                                      match.group('leading') +
+                                      gist_content +
+                                      match.group('trailing'), 1)
         return content, []

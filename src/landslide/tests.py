@@ -163,17 +163,18 @@ echo $bar;
 
     def test_parsing_code_blocks(self):
         m = macro.CodeHighlightingMacro(self.logtest)
-        blocks = m.code_blocks_re.findall(self.sample_html)
-        self.assertEquals(len(blocks), 3)
-        self.assertEquals(blocks[0][2], '!')
-        self.assertEquals(blocks[0][3], 'python')
-        self.assertTrue(blocks[0][4].startswith('def foo():'))
-        self.assertEquals(blocks[1][2], '!')
-        self.assertEquals(blocks[1][3], 'php')
-        self.assertTrue(blocks[1][4].startswith('<?php'))
-        self.assertEquals(blocks[2][2], '!!')
-        self.assertEquals(blocks[2][3], 'xml')
-        self.assertTrue(blocks[2][4].startswith('<foo>'))
+        blocks = m.banged_blocks_re.finditer(self.sample_html)
+        match = blocks.next()
+        self.assertEquals(match.group('lang'), 'python')
+        self.assertTrue(match.group('code').startswith('def foo():'))
+        match = blocks.next()
+        self.assertEquals(match.group('lang'), 'php')
+        self.assertTrue(match.group('code').startswith('<?php'))
+        match = blocks.next()
+        self.assertEquals(match.group('lang'), 'xml')
+        self.assertTrue(match.group('code').startswith('<foo>'))
+        with self.assertRaises(StopIteration):
+            blocks.next()
 
     def test_descape(self):
         m = macro.CodeHighlightingMacro(self.logtest)
