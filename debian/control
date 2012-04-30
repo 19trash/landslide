@@ -11,6 +11,7 @@ Vcs-Browser: https://github.com/00010011/landslide
 Package: python-landslide-patched
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, python-pkg-resources
+Suggests: python-misaka
 Conflicts: python-landslide
 Breaks: ${python:Breaks}
 Description: Lightweight markup language-based html5 slideshow generator
