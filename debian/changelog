@@ -1,3 +1,14 @@
+landslide-patched (1.0.1~12043002-0xix1) unstable; urgency=low
+
+  * Fix Gist url
+  * Support code highlighting in fenced code blocks
+  * Update code highlighting tests
+  * Fix finditer logic in code higlighting macro
+  * Fix finditer logic in include file macro
+  * Fix finditer logic in gist macro
+
+ -- Recai Oktaş <roktas@debian.org>  Mon, 30 Apr 2012 17:16:54 +0300
+
 landslide-patched (1.0.1~12043001-0xix1) unstable; urgency=low
 
   * Now with SmartyPants.
