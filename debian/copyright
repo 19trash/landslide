@@ -6,10 +6,12 @@ Source: https://github.com/adamzap/landslide
 Files: *
 Copyright: Copyright 2010 Adam Zapletal
 Copyright: Copyright 2010 Google Inc
+Copyright: Copyright 2012 Recai Oktaş
 License: Apache-2.0
 
 Files: debian/*
 Copyright: Copyright 2010 Damien Raude-Morvan <drazzib@debian.org>
+Copyright: Copyright 2012 Recai Oktaş <roktas@debian.org>
 License: Apache-2.0
 
 License: Apache-2.0
