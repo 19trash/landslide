@@ -64,6 +64,7 @@ class Generator(object):
             - ``destination_file``: path to html or PDF destination file
             - ``direct``: enables direct rendering presentation to stdout
             - ``debug``: enables debug mode
+            - ``driver``: preferred driver for the computed format
             - ``embed``: generates a standalone document, with embedded assets
             - ``encoding``: the encoding to use for this presentation
             - ``expandtabs``: number of spaces to expand tabs
@@ -79,6 +80,7 @@ class Generator(object):
         self.destination_file = kwargs.get('destination_file',
                                            'presentation.html')
         self.direct = kwargs.get('direct', False)
+        self.driver = kwargs.get('driver', None)
         self.embed = kwargs.get('embed', False)
         self.expandtabs = kwargs.get('expandtabs', macro_module.IncludeMacro.EXPANDTABS)
         self.encoding = kwargs.get('encoding', 'utf8')
@@ -112,6 +114,7 @@ class Generator(object):
                 raise IOError('unable to fetch a valid source from config')
             self.destination_file = config.get('destination',
                 self.DEFAULT_DESTINATION)
+            self.driver = config.get('driver', None)
             self.embed = config.get('embed', False)
             self.expandtabs = config.get('expandtabs',
                                          macro_module.IncludeMacro.EXPANDTABS)
@@ -236,8 +239,11 @@ class Generator(object):
                 slides.extend(self.fetch_contents(os.path.join(source, entry)))
         else:
             try:
-                parser = Parser(os.path.splitext(source)[1], encoding=self.encoding,
-                    md_extensions=self.extensions, logger=self.logger)
+                parser = Parser(os.path.splitext(source)[1],
+                                driver=self.driver,
+                                encoding=self.encoding,
+                                md_extensions=self.extensions,
+                                logger=self.logger)
             except NotImplementedError:
                 return slides
 
@@ -431,6 +437,9 @@ class Generator(object):
             config['destination'] = raw_config.get('landslide', 'destination')
         if raw_config.has_option('landslide', 'linenos'):
             config['linenos'] = raw_config.get('landslide', 'linenos')
+        if raw_config.has_option('landslide', 'driver'):
+            config['driver'] = raw_config.get('landslide', 'driver')
+            self.log(u"Using    configured driver %s" % config['driver'])
         if raw_config.has_option('landslide', 'embed'):
             config['embed'] = raw_config.getboolean('landslide', 'embed')
         if raw_config.has_option('landslide', 'expandtabs'):

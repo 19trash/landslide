@@ -56,22 +56,24 @@ class Parser(object):
         self.format = None
         self.driver = None
         self.logger = logger
+
         for supp_format, supp_extensions in SUPPORTED_FORMATS.items():
             for supp_extension in supp_extensions:
                 if supp_extension == extension:
                     self.format = supp_format
         if not self.format:
             raise NotImplementedError(u"Unsupported format %s" % extension)
-        if driver and driver not in SUPPORTED_FORMATS[self.format]:
-                raise NotImplementedError(u"Unsupported driver %s for format %s"
-                                          % (driver, self.format))
-        for driver in SUPPORTED_DRIVERS[self.format]:
+
+        alternatives = SUPPORTED_DRIVERS[self.format]
+        if driver:
+            if driver not in SUPPORTED_DRIVERS[self.format]:
+                raise RuntimeError(u"Unsupported driver %s for format %s"
+                                   % (driver, self.format))
+            alternatives = [driver]
+        for alternative in alternatives:
             try:
-                self.module = __import__(driver)
-                self.driver = driver
-                if len(SUPPORTED_DRIVERS[self.format]) > 1:
-                    self.logger(u"Using driver %s for %s format" %
-                                (self.driver, self.format), 'notice')
+                self.module = __import__(alternative)
+                self.driver = alternative
                 break
             except ImportError:
                 pass
@@ -79,6 +81,7 @@ class Parser(object):
             raise RuntimeError(u"Looks like required module is not installed "
                                 "for format %s; supported modules: %s" %
                                (self.format, SUPPORTED_DRIVERS[self.format]))
+
         # TODO: Make this usable for all drivers (how?)
         if md_extensions:
             exts = (value.strip() for value in md_extensions.split(','))
@@ -98,7 +101,6 @@ class Parser(object):
             m = self.module
             return m.html(text,
                 render_flags=
-                    m.HTML_ESCAPE |
                     m.HTML_USE_XHTML |
                     m.HTML_SMARTYPANTS,
                 extensions=

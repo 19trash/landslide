@@ -1,5 +1,9 @@
 # Overview
 
+**This is a fork repository.  Please see the
+[document](https://github.com/00010011/landslide/blob/master/ABOUT.md) for the
+differences between the original and the forked version.**
+
 Landslide generates a slideshow using the slides that power
 [the html5-slides presentation](http://apirocks.com/html5/html5.html).
 
