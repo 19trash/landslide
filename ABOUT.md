@@ -52,23 +52,23 @@ cases.
 
   + Whole content in Gist 123456:
 
-        .gist: 123456
+            .gist: 123456
 
   + Only the files `foo` and `bar`:
 
-        .gist: 123456 foo bar
+            .gist: 123456 foo bar
 
 
 - Add code to setup `includepath` and `expandtabs` via command line and
   configuration file.
 
-- Current directory is always in includepath.
+- Current directory is always in `includepath`.
 
 ### Allow setting expandtabs per included file
 
- We have `.code`, `.coden` and `include` macros.  Embed `expandtabs` value in
-macro names, e.g. `.code4` means a value of 4 for `expandtabs`.  Somewhat a hack
-in the lack of "per macro configuration" mechanism.
+Embed `expandtabs` value in include macro names, e.g. `.code4` means a value of
+4 for `expandtabs`.  Somewhat a hack in the lack of "per macro configuration"
+mechanism.
 
 ### Enable linenos per code blocks
 
