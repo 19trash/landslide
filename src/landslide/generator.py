@@ -71,6 +71,7 @@ class Generator(object):
             - ``extensions``: Comma separated list of markdown extensions
             - ``includepath``: Colon separated list of directories to locate included files
             - ``logger``: a logger lambda to use for logging
+            - ``presenter_notes``: enable presenter notes
             - ``relative``: enable relative asset urls
             - ``theme``: path to the theme to use for this presentation
             - ``verbose``: enables verbose output
@@ -87,6 +88,7 @@ class Generator(object):
         self.includepath = kwargs.get('includepath', macro_module.IncludeMacro.INCLUDEPATH)
         self.extensions = kwargs.get('extensions', None)
         self.logger = kwargs.get('logger', None)
+        self.presenter_notes = kwargs.get('presenter_notes', True)
         self.relative = kwargs.get('relative', False)
         self.theme = kwargs.get('theme', 'default')
         self.verbose = kwargs.get('verbose', False)
@@ -365,7 +367,8 @@ class Generator(object):
                              re.DOTALL | re.UNICODE | re.IGNORECASE)
 
             if find:
-                presenter_notes = content[find.end():].strip()
+                if self.presenter_notes:
+                    presenter_notes = content[find.end():].strip()
                 content = content[:find.start()]
 
         source_dict = {}
