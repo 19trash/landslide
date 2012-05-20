@@ -1,3 +1,24 @@
+landslide-patched (1.0.1~12052000-0xix1) unstable; urgency=low
+
+  [ Aymeric Augustin ]
+  * Add an option to strip presenter notes from output
+
+  [ Recai Oktaş ]
+  * Minor fixes
+  * Move notice to top
+
+  [ Adam Zapletal ]
+  * Fix base64 encoding images on Windows. Fixes #109
+
+  [ Aymeric Augustin ]
+  * Keep presenter notes on by default.
+
+  [ Recai Oktaş ]
+  * Descape character entities before pygmentize
+  * cosmetic changes
+
+ -- Recai Oktaş <roktas@debian.org>  Sun, 20 May 2012 21:41:04 +0300
+
 landslide-patched (1.0.1~12050200-0xix1) unstable; urgency=low
 
   * Make driver configurable (cli and config file)
