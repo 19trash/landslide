@@ -80,13 +80,19 @@ class CodeHighlightingMacro(Macro):
         """, re.VERBOSE | re.UNICODE | re.MULTILINE | re.DOTALL)
 
     html_entity_re = re.compile('&(\w+?);')
+    char_entity_re = re.compile('&#(\d+?);')
 
     def descape(self, string, defs=None):
         """Decodes html entities from a given string"""
         if defs is None:
             defs = htmlentitydefs.entitydefs
-        f = lambda m: defs[m.group(1)] if len(m.groups()) > 0 else m.group(0)
-        return self.html_entity_re.sub(f, string)
+        return self.char_entity_re.sub(
+            lambda m: chr(int(m.group(1))) if len(m.groups()) > 0 else m.group(0),
+            self.html_entity_re.sub(
+                lambda m: defs[m.group(1)] if len(m.groups()) > 0 else m.group(0),
+                string
+            )
+        )
 
     def pygmentize(self, content, match, has_linenos=False):
         block, lang, code = match.group('block'), match.group('lang'), match.group('code')
@@ -106,7 +112,7 @@ class CodeHighlightingMacro(Macro):
         return content.replace(block, pretty_code, 1)
 
     def process(self, content, source=None):
-        if 'linenos' not in self.options or self.options['linenos'] =='no':
+        if 'linenos' not in self.options or self.options['linenos'] == 'no':
             self.options['linenos'] = False
         classes = []
         for block_re in (self.banged_blocks_re, self.fenced_blocks_re):
@@ -352,7 +358,7 @@ class IncludeMacro(Macro):
 
             return {
                 'source': string,
-                're'    : compiled,
+                    're': compiled,
                 'offset': offset,
             }
 
@@ -385,7 +391,7 @@ class IncludeMacro(Macro):
         """Locate the given file in includepath"""
         paths = [os.path.expanduser(p)
                  for p in self.options['includepath'].split(':')]
-        if '.' not in paths: # current directory should always be in path
+        if '.' not in paths:  # current directory should always be in path
             paths.append('.')
         curdir = os.path.dirname(source)
         if not curdir:
