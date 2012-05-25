@@ -1,3 +1,10 @@
+landslide-patched (1.0.1~12052500-0xix1) unstable; urgency=low
+
+  * Add new cli options to add user css and js files
+  * Change the semantics of setting destination file slightly
+
+ -- Recai Oktaş <roktas@debian.org>  Fri, 25 May 2012 20:43:06 +0300
+
 landslide-patched (1.0.1~12052000-0xix1) unstable; urgency=low
 
   [ Aymeric Augustin ]
