@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+Rake.verbose false
+
 README = <<DOC
 New package release with source changes:
 
