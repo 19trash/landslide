@@ -66,6 +66,8 @@ class Generator(object):
             - ``debug``: enables debug mode
             - ``driver``: preferred driver for the computed format
             - ``embed``: generates a standalone document, with embedded assets
+            - ``css``: user css files
+            - ``js``: user js files
             - ``encoding``: the encoding to use for this presentation
             - ``expandtabs``: number of spaces to expand tabs
             - ``extensions``: Comma separated list of markdown extensions
@@ -78,8 +80,7 @@ class Generator(object):
         """
         self.copy_theme = kwargs.get('copy_theme', False)
         self.debug = kwargs.get('debug', False)
-        self.destination_file = kwargs.get('destination_file',
-                                           'presentation.html')
+        self.destination_file = kwargs.get('destination_file', None)
         self.direct = kwargs.get('direct', False)
         self.driver = kwargs.get('driver', None)
         self.embed = kwargs.get('embed', False)
@@ -93,6 +94,8 @@ class Generator(object):
         self.theme = kwargs.get('theme', 'default')
         self.verbose = kwargs.get('verbose', False)
         self.linenos = self.linenos_check(kwargs.get('linenos'))
+        self.add_user_css(kwargs.get('css', []))
+        self.add_user_js(kwargs.get('js', []))
         self.num_slides = 0
         self.__toc = []
 
@@ -114,8 +117,9 @@ class Generator(object):
             self.source = config.get('source')
             if not self.source:
                 raise IOError('unable to fetch a valid source from config')
-            self.destination_file = config.get('destination',
-                self.DEFAULT_DESTINATION)
+            destination_file = config.get('destination', None)
+            if destination_file:
+                self.destination_file = destination_file
             self.driver = config.get('driver', None)
             self.embed = config.get('embed', False)
             self.expandtabs = config.get('expandtabs',
@@ -130,6 +134,8 @@ class Generator(object):
         else:
             self.source = source
 
+        if not self.destination_file:
+            self.destination_file = self.DEFAULT_DESTINATION
         if (os.path.exists(self.destination_file)
             and not os.path.isfile(self.destination_file)):
             raise IOError(u"Destination %s exists and is not a file"

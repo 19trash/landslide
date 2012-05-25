@@ -49,6 +49,22 @@ def _parse_options():
         default=False)
 
     parser.add_option(
+        "-C", "--css",
+        dest="css",
+        help="Add user css file",
+        metavar="FILE",
+        action="append",
+        default=[])
+
+    parser.add_option(
+        "-J", "--js",
+        dest="js",
+        help="Add user js file",
+        metavar="FILE",
+        action="append",
+        default=[])
+
+    parser.add_option(
         "-b", "--debug",
         action="store_true",
         dest="debug",
@@ -61,7 +77,7 @@ def _parse_options():
         help="The path to the to the destination file: .html or "
              ".pdf extensions allowed (default: presentation.html)",
         metavar="FILE",
-        default="presentation.html")
+        default=None)
 
     parser.add_option(
         "-E", "--expandtabs",
